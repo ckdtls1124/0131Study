@@ -8,10 +8,7 @@ import org.spring.security2.service.MemberServ;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -77,7 +74,12 @@ public class MemberControl {
     public String manager(){
         return "member/manager";
     }
-
+//    ========================================================
+//    Detail Info=============================================
+    @GetMapping("/detail")
+    public MemberDto selectDetail(@RequestParam(value = "email") String email, @RequestBody MemberDto dto){
+        return  memberServ.detailMember(email);
+    }
 
 
 }

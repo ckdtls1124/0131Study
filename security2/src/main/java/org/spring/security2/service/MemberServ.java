@@ -2,6 +2,7 @@ package org.spring.security2.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import org.aspectj.apache.bcel.classfile.Module;
 import org.spring.security2.constant.Role;
 import org.spring.security2.dto.MemberDto;
 import org.spring.security2.entities.Members;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -45,5 +47,17 @@ public class MemberServ {
         }
 
         return allMembersDto;
+    }
+
+    public MemberDto detailMember(String email) {
+
+        Optional<Members> result=membersRepository.findByEmail(email);
+        Members detail=result.get();
+        MemberDto dto=MemberDto.builder()
+                .email(detail.getEmail())
+                .password(detail.getPassword())
+                .role(detail.getRole())
+                .build();
+        return dto;
     }
 }

@@ -3,28 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/cesiumjs/1.78/Build/Cesium/Cesium.js"></script>
+    <script src="/js/member.js" defer></script>
 </head>
 <body>
 <h1>This is a member page</h1>
-<table>
+<table colspan="1">
     <thead>
     <tr>
         <th>EMAIL</th>
-        <th>PASSWORD</th>
         <th>CreatedTime</th>
         <th>UpdatedTime</th>
         <th>Role</th>
+        <th>Detail</th>
     </tr>
     </thead>
     <tbody th:each="info : ${allMembers}">
     <tr>
           <td th:text="${info.email}"></td>
-          <td th:text="${info.password}"></td>
           <td th:text="${info.createTime}"></td>
           <td th:text="${info.updateTime}"></td>
           <td th:text="${info.role}"></td>
+          <td><input type="submit" th:text="${param.info.email}" th:href="@{/member/detail}">Info</input></td>
     </tr>
     </tbody>
+    <br> <br>
+
+    <h4>Detail</h4>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Role</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody class="detailInfo">
+        <tr>
+
+
+        </tr>
+        </tbody>
+    </table>
+
+
+
+
 </table>
 </body>
 </html>
