@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <h1>This is index page</h1>
+  <ul>
+      <li sec:authorize="isAnonymous()"><a th:href="@{/}">HOME</a></li>
+      <li sec:authorize="isAnonymous()"><a th:href="@{#}">SHOP</a></li>
+      <li sec:authorize="isAnonymous()"><a th:href="@{#}">INFO</a></li>
+      <li sec:authorize="isAnonymous()"><a th:href="@{#}">SITEMAP</a></li>
+      <li sec:authorize="isAuthenticated()"><a th:href="@{/member/memberAll}">MEMBER</a></li>
+      <li sec:authorize="hasAnyRole('ADMIN', 'MANAGER')"><a th:href="@{/manager}">MANAGER</a></li>
+      <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin}">ADMIN</a></li>
+      <li sec:authorize="isAnonymous()"><a th:href="@{/member/join}">REGISTER</a></li>
+      <li sec:authorize="isAnonymous()"><a th:href="@{/member/login}">LOGIN</a></li>
+      <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">LOGOUT</a></li>
+  </ul>
+</body>
+</html>

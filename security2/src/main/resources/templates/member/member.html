@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>This is a member page</h1>
+<table>
+    <thead>
+    <tr>
+        <th>EMAIL</th>
+        <th>PASSWORD</th>
+        <th>CreatedTime</th>
+        <th>UpdatedTime</th>
+        <th>Role</th>
+    </tr>
+    </thead>
+    <tbody th:each="info : ${allMembers}">
+    <tr>
+          <td th:text="${info.email}"></td>
+          <td th:text="${info.password}"></td>
+          <td th:text="${info.createTime}"></td>
+          <td th:text="${info.updateTime}"></td>
+          <td th:text="${info.role}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
