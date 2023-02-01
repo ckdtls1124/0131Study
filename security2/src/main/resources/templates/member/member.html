@@ -8,47 +8,59 @@
 </head>
 <body>
 <h1>This is a member page</h1>
-<table colspan="1">
+<table>
     <thead>
     <tr>
+        <th colspan="5">
+            <form th:action="@{/member/user/search}" method="get">
+                <input type="text" name="search" id="search">
+                <input type="submit" value="Search">
+            </form>
+        </th>
+    </tr>
+    <tr>
+        <th>No.</th>
         <th>EMAIL</th>
         <th>CreatedTime</th>
         <th>UpdatedTime</th>
         <th>Role</th>
         <th>Detail</th>
+        <th>Update</th>
+        <th>Home</th>
     </tr>
     </thead>
     <tbody th:each="info : ${allMembers}">
     <tr>
-          <td th:text="${info.email}"></td>
-          <td th:text="${info.createTime}"></td>
-          <td th:text="${info.updateTime}"></td>
-          <td th:text="${info.role}"></td>
-          <td><input type="submit" th:text="${param.info.email}" th:href="@{/member/detail}">Info</input></td>
+        <td th:text="${info.id}"></td>
+        <td th:text="${info.email}"></td>
+        <td th:text="${info.createTime}"></td>
+        <td th:text="${info.updateTime}"></td>
+        <td th:text="${info.role}"></td>
+        <td><button type="button"><a th:href="@{/member/detail/{id}(id=${info.id})}">Info</a></button></td>
+        <td><button type="button"><a th:href="@{/member/updateP/{id}(id=${info.id})}">Update</a></button></td>
+        <td th:unless="${#lists.isEmpty(allMembers)}"><button type="button" class="s3sub"><a th:href="@{/index}">Home</a></button></td>
     </tr>
     </tbody>
     <br> <br>
 
-    <h4>Detail</h4>
+    <!--    <h4>Detail</h4>-->
 
-    <table>
-        <thead>
-        <tr>
-            <th>Email</th>
-            <th>Password</th>
-            <th>Role</th>
-            <th>Delete</th>
-        </tr>
-        </thead>
-        <tbody class="detailInfo">
-        <tr>
-
-
-        </tr>
-        </tbody>
-    </table>
+    <!--    <table>-->
+    <!--        <thead>-->
+    <!--        <tr>-->
+    <!--            <th>Email</th>-->
+    <!--            <th>Password</th>-->
+    <!--            <th>Role</th>-->
+    <!--            <th>Delete</th>-->
+    <!--        </tr>-->
+    <!--        </thead>-->
+    <!--        <tbody class="detailInfo">-->
+    <!--        <tr>-->
 
 
+    <!--        </tr>-->
+    <!--        </tbody>-->
+    <!--    </table>-->
 
 
 </table>

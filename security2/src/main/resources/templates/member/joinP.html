@@ -24,6 +24,10 @@
                         </li>
                         <li class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">비밀번호 오류</li>
                         <li class="s3">
+                            <label th:for="gender">gender</label>
+                            <input type="text" th:field="*{gender}">
+                        </li>
+                        <li class="s4">
                             <input type="submit" value="Register" class="s3sub">
                             <button type="button" class="s3sub"><a th:href="@{/index}">Home</a></button>
                         </li>

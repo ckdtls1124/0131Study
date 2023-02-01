@@ -5,12 +5,14 @@ import lombok.ToString;
 import org.aspectj.apache.bcel.classfile.Module;
 import org.spring.security2.constant.Role;
 import org.spring.security2.dto.MemberDto;
+import org.spring.security2.entities.BaseEntity;
 import org.spring.security2.entities.Members;
 import org.spring.security2.repository.MembersRepository;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,27 +24,18 @@ public class MemberServ {
     private final MembersRepository membersRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     public void insert(MemberDto memberDto) {
 
-        Members members=Members.builder()
-                .email(memberDto.getEmail())
-                .password(passwordEncoder.encode(memberDto.getPassword()))
-                .role(Role.MEMBER.toString())
-                .build();
+        Members members = Members.builder().email(memberDto.getEmail()).password(passwordEncoder.encode(memberDto.getPassword())).role(Role.MEMBER).gender(memberDto.getGender()).build();
         membersRepository.save(members);
     }
 
     public List<MemberDto> showmemberAll() {
-        List<MemberDto> allMembersDto=new ArrayList<>();
-        List<Members> allMembersEnt=membersRepository.findAll();
-        for(Members i:allMembersEnt){
-        MemberDto dtos=MemberDto.builder()
-                .email(i.getEmail())
-                .password(i.getPassword())
-                .createTime(i.getCreateTime())
-                .updateTime(i.getUpdateTime())
-                .role(i.getRole())
-                .build();
+        List<MemberDto> allMembersDto = new ArrayList<>();
+        List<Members> allMembersEnt = membersRepository.findAll();
+        for (Members i : allMembersEnt) {
+            MemberDto dtos = MemberDto.builder().id(i.getId()).email(i.getEmail()).password(i.getPassword()).createTime(i.getCreateTime()).updateTime(i.getUpdateTime()).role(i.getRole().toString()).build();
             allMembersDto.add(dtos);
         }
 
@@ -51,13 +44,45 @@ public class MemberServ {
 
     public MemberDto detailMember(String email) {
 
-        Optional<Members> result=membersRepository.findByEmail(email);
-        Members detail=result.get();
+        Optional<Members> result = membersRepository.findByEmail(email);
+        Members detail = result.get();
+        MemberDto dto = MemberDto.builder().id(detail.getId()).email(detail.getEmail()).password(detail.getPassword()).role(detail.getRole().toString()).build();
+        return dto;
+    }
+
+    public List<MemberDto> selectContaining(String search) {
+        List<Members> result = membersRepository.findByEmailContaining(search);
+        List<MemberDto> dtos = new ArrayList<>();
+        if (result != null) {
+            for (Members i : result) {
+                MemberDto dto = MemberDto.builder().email(i.getEmail()).password(i.getPassword()).role(i.getRole().toString()).createTime(i.getCreateTime()).updateTime(i.getUpdateTime()).build();
+                dtos.add(dto);
+            }
+        }
+        return dtos;
+    }
+
+    public MemberDto selectDetail(Long id) {
+        Optional<Members> result=membersRepository.findById(id);
+        Members ent=result.get();
         MemberDto dto=MemberDto.builder()
-                .email(detail.getEmail())
-                .password(detail.getPassword())
-                .role(detail.getRole())
+                .id(ent.getId())
+                .email(ent.getEmail())
+                .password(ent.getPassword())
+                .role(ent.getRole().toString())
+                .createTime(ent.getCreateTime())
+                .updateTime(ent.getUpdateTime())
                 .build();
         return dto;
+    }
+
+    @Transactional
+    public String update(Long id, String email, String password, String gender) {
+        String password1=passwordEncoder.encode(password);
+        int result=membersRepository.updateMember(email, password1, gender,id);
+        if(result != 0){
+            return "Success";
+        }
+        return "failed";
     }
 }
