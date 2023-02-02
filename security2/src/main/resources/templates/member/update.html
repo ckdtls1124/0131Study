@@ -13,9 +13,10 @@
                 <form th:action="@{/member/update}" th:each="info : ${memberInfo}" method="post">
                     <ul>
                         <li class="s1">Update Information</li>
+                            <input type="text" hidden="hidden" th:value="${info.id}" name="id">
                         <li class="s2">
                             <label th:for="email">email</label>
-                            <input type="text"  th:value="${info.email}" name="email" readonly>
+                            <input type="text"  th:value="${info.email}" name="email">
                         </li>
 <!--                        <li class="error" th:if="${${info.email}.hasErrors('email')}" th:errors="*{email}">이메일 오류</li>-->
                         <li class="s2">

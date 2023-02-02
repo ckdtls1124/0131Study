@@ -90,8 +90,9 @@ public class MemberControl {
 
     //    Update ==================================================================
     @GetMapping("/updateP/{id}")
-    public String updatePage(@PathVariable("id") Long id, Model model) {
+    public String updatePage(@PathVariable("id") Long id,Model model) {
         MemberDto member = memberServ.selectDetail(id);
+//        memberServ.update1(id, dto.getPassword(), dto.getGender());
         model.addAttribute("memberInfo", member);
         model.addAttribute("dto", new MemberDto());
         return "member/update";
@@ -102,11 +103,14 @@ public class MemberControl {
 //        if (result.hasErrors()) {
 //            return "member/update";
 //        }
-        String rs = memberServ.update(memberDto.getId(), memberDto.getEmail(), memberDto.getPassword(), memberDto.getGender());
-        if (rs.equals("Success")) {
-            return "redirect:member/login";
-        }
-        return "member/update";
+        System.out.println("ID="+memberDto.getId());
+        System.out.println("Password="+memberDto.getPassword());
+        System.out.println("Gender="+memberDto.getGender());
+            memberServ.update1(memberDto.getEmail(), memberDto.getId(), memberDto.getPassword(), memberDto.getGender());
+//        if (rs.equals("Success")) {
+//            return "redirect:member/login";
+//        }
+        return "index";
     }
 
 }

@@ -76,13 +76,14 @@ public class MemberServ {
         return dto;
     }
 
+
     @Transactional
-    public String update(Long id, String email, String password, String gender) {
-        String password1=passwordEncoder.encode(password);
-        int result=membersRepository.updateMember(email, password1, gender,id);
-        if(result != 0){
-            return "Success";
-        }
-        return "failed";
+    public void update1(String email, Long id, String password, String gender){
+       Optional<Members> member=membersRepository.findById(id);
+       member.get().setEmail(email);
+       member.get().setPassword(passwordEncoder.encode(password));
+       member.get().setGender(gender);
+       membersRepository.save(member.get());
     }
+
 }

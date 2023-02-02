@@ -17,6 +17,6 @@ public interface MembersRepository extends JpaRepository<Members, Long> {
 
     @Modifying(clearAutomatically = true)
     @Query(value = "UPDATE membertb m SET m.password=:password, m.gender=:gender where m.id=:id and m.email=:email", nativeQuery = true)
-    int updateMember(@Param(value = "email") String email, @Param(value = "password") String password1, @Param(value = "gender") String gender,
-                     @Param(value="id") Long id);
+    int updateMember( @Param(value = "password") String password1, @Param(value = "gender") String gender,
+                     @Param(value="id") Long id, @Param(value = "email") String email);
 }
