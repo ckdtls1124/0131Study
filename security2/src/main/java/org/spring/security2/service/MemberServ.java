@@ -13,9 +13,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static org.hibernate.boot.model.process.spi.MetadataBuildingProcess.build;
 
 @Service
 @RequiredArgsConstructor
@@ -79,11 +82,11 @@ public class MemberServ {
 
     @Transactional
     public void update1(String email, Long id, String password, String gender){
-       Optional<Members> member=membersRepository.findById(id);
-       member.get().setEmail(email);
-       member.get().setPassword(passwordEncoder.encode(password));
-       member.get().setGender(gender);
-       membersRepository.save(member.get());
+       Members members= membersRepository.findById(id).get();
+       members.setEmail(email);
+       members.setPassword(passwordEncoder.encode(password));
+       members.setGender(gender);
+       membersRepository.save(members);
     }
 
 }

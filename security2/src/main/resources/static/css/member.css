@@ -1,0 +1,66 @@
+@import url('common/reset.css');
+
+#userImage{
+    border: 1px solid;
+    box-sizing: border-box;
+    width: 200px;
+    height:200px;
+}
+
+.membercontainer .memberlist{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.membercontainer .memberlist .memberlist-con{
+    height: 100%;
+    width: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+
+}
+
+.membercontainer .memberlist .memberlist-con .top-con .top-menu{
+    display: flex;
+    justify-content: end;
+}
+
+.membercontainer .memberlist .memberlist-con .show-con{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.membercontainer .memberlist .memberlist-con .show-con .show{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: repeat(400px, 4);
+    grid-auto-rows: minmax(0, 400px);
+
+}
+
+.membercontainer .memberlist .memberlist-con .show-con .show ul{
+    /* border: 1px solid red;
+    box-sizing: border-box; */
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+}
+.membercontainer .memberlist .memberlist-con .show-con .show ul .buttons{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+}
+
+
+
+
+
+
+
+
