@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/cesiumjs/1.78/Build/Cesium/Cesium.js"></script> -->
-    <!-- <script src="/js/member.js" defer></script> -->
+     <script src="https://ajax.googleapis.com/ajax/libs/cesiumjs/1.78/Build/Cesium/Cesium.js"></script>
+     <script th:src="@{/js/memberDetail.js}" defer></script>
     <link rel="stylesheet" th:href="@{/css/member.css}">
 </head>
 <body>
@@ -39,7 +39,7 @@
                     <ul class="detailInfo" th:each="info : ${allMembers}">
                         <img id="userImage" th:src="@{/img/user.png}" alt="userImage">
                         No.
-                        <li th:text="${info.id}"></li>
+                        <li id="no" th:text="${info.id}" th:value="@{info.id}"></li>
                         EMAIL :
                         <li th:text="${info.email}"></li>
                         CreatedTime :
@@ -55,7 +55,7 @@
                                 </button>
                             </li>
                             <li>
-                                <button type="button"><a th:href="@{/member/updateP/{id}(id=${info.id})}">Update</a>
+                                <button type="button" id="updateDetail"><a th:href="@{/member/updateP?id={id}(id=${info.id})}">Update</a>
                                 </button>
                             </li>
                             <li>
@@ -66,6 +66,38 @@
                     </ul>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update Ajax Detail -->
+<div class="update">
+    <div class="update-con">
+        <div class="update-form">
+            <form th:action="@{/member/update}" th:each="m : ${member}"  method="post">
+                <ul>
+                    <li class="s1">Update Information</li>
+<!--                    <input type="text" hidden="hidden" th:value="${info.id}" name="id">-->
+                    <li class="s2">
+                        <label for="email">email</label>
+                        <input type="text"  id="email" name="email" th:value="@{m.email}">
+                    </li>
+                    <!--                        <li class="error" th:if="${${info.email}.hasErrors('email')}" th:errors="*{email}">이메일 오류</li>-->
+                    <li class="s2">
+                        <label for="password">password</label>
+                        <input type="password" id="password" name="password" th:value="@{m.password}">
+                    </li>
+                    <!--                        <li class="error" th:if="${${info.password}.hasErrors('password')}" th:errors="*{password}">비밀번호 오류</li>-->
+                    <li class="s3">
+                        <label for="gender">gender</label>
+                        <input type="text" id="gender" name="gender" th:value="@{m.gender}">
+                    </li>
+                    <li class="s4">
+                        <input type="submit" value="Update" class="s3sub">
+                        <button type="button" class="s3sub"><a th:href="@{/index}">Home</a></button>
+                    </li>
+                </ul>
+            </form>
         </div>
     </div>
 </div>

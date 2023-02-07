@@ -89,17 +89,30 @@ public class MemberControl {
     }
 
     //    Update ==================================================================
-    @GetMapping("/updateP/{id}")
-    public String updatePage(@PathVariable("id") Long id,Model model) {
-        MemberDto member = memberServ.selectDetail(id);
-        model.addAttribute("dto", new MemberDto());
-        model.addAttribute("memberInfo", member);
-        return "member/update";
-    }
+//    @GetMapping("/updateP/{id}")
+//    public String updatePage(@PathVariable("id") Long id,Model model) {
+//        MemberDto member = memberServ.selectDetail(id);
+//        model.addAttribute("dto", new MemberDto());
+//        model.addAttribute("memberInfo", member);
+//        return "member/update";
+//    }
+
+
     @PostMapping("/update")
     public String updateMember(MemberDto memberDto) {
             memberServ.update1(memberDto.getEmail(), memberDto.getId(), memberDto.getPassword(), memberDto.getGender());
         return "index";
     }
+//    =======Update Ajax============================================
+    @GetMapping("/updateP?id={id}")
+    public @ResponseBody MemberDto findInfosUpdateP(@PathVariable("id") Long id,Model model) {
+        MemberDto member = memberServ.selectDetail(id);
+        return member;
+    }
+
+
+
+
+//    ==============================================================
 
 }
