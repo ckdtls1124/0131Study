@@ -104,7 +104,7 @@ public class MemberControl {
         return "index";
     }
 //    =======Update Ajax============================================
-    @GetMapping("/updateP?id={id}")
+    @GetMapping("/updateP/{id}")
     public @ResponseBody MemberDto findInfosUpdateP(@PathVariable("id") Long id,Model model) {
         MemberDto member = memberServ.selectDetail(id);
         return member;
